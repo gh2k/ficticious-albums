@@ -9,3 +9,14 @@ app.run(function($rootScope) {
     fw.setAttribute('src', "'/views/framework.html'");
     document.body.appendChild(fw);
 });
+
+/// Model for loading and storing our album data
+app.controller('AlbumsController', function($scope, $http) {
+  $http.get('/model/manifest.json')
+       .then(function(res) {
+          $scope.manifest = res.data;
+        },
+        function(res) {
+          $scope.error = "No manifest data. Looks like you've not yet generated the content.";
+        });
+});
