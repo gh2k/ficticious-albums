@@ -1,3 +1,13 @@
 <div ng-controller="AlbumsController">
   <div class="error">{{ error }}</div>
+
+  <div ng-repeat="album in albums" class="album">
+    <a href="{{album.flickr_url}}"><img src="{{album.cover}}"></a> <b>{{album.title}}</b> by <b>{{album.band}}</b>
+    <div class="album-metadata">
+      Genre: {{album.genre}} <br>
+      Rating: {{album.rating}} <br>
+      Description: <br>
+      {{album.description}}
+    </div>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-use Rack::Static, :root => 'angular', :urls => %w(/angular /views /model /js)
+use Rack::Static, :root => 'angular', :urls => %w(/angular /views /model /js /css)
 
 run lambda { |env|
   [
