@@ -6,11 +6,11 @@ require_relative 'lib/randomtext.rb'
 # https://github.com/KevinBongart/ourbandiscalled
 # https://github.com/tjarratt/RandomTextGen
 
-JSON_COUNT = 5000
+ITEM_COUNT = 1000
 
 manifest = {}
 
-JSON_COUNT.times do
+ITEM_COUNT.times do
   album = RandomText::Album.new
 
   manifest[album.slug] = album.rating
