@@ -17,5 +17,5 @@ ITEM_COUNT.times do
   File.write("output/#{album.slug}.json", album.to_json)
 end
 
-File.write('output/manifest.json', manifest.sort_by { |slug, rating| rating }.map { |s| s[0] }.to_json)
+File.write('output/manifest.json', manifest.sort_by { |slug, rating| rating }.reverse.map { |s| s[0] }.to_json)
 
