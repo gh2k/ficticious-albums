@@ -1,8 +1,13 @@
 <div ng-controller="AlbumsController">
+  <div class="controls">
+    <span ng-repeat="g in genres">
+    <input type="checkbox" checklist-model="search.genre" checklist-value="g"> {{g}}
+    </span>
+  </div>
   <div class="error">{{ error }}</div>
 
   <div infinite-scroll="loadMore()" infinite-scroll-distance="1">
-    <div ng-repeat="album in albums" class="album">
+    <div ng-repeat="album in albums | filter:search:compare" class="album">
       <a href="{{album.flickr_url}}"><img src="{{album.cover}}"></a> <b>{{album.title}}</b> by <b>{{album.band}}</b>
       <div class="album-metadata">
         Genre: {{album.genre}} <br>

@@ -1,4 +1,4 @@
-var app = angular.module("json_gen", ['infinite-scroll']);
+var app = angular.module("json_gen", ['infinite-scroll', 'checklist-model']);
 
 app.run(function($rootScope) {
 
@@ -21,6 +21,32 @@ app.run(function($rootScope) {
 
 /// Model for loading and storing our album data
 app.controller('AlbumsController', function($scope, $http) {
+  $scope.genres = [
+    'World',
+    'Soundtrack',
+    'Folk',
+    'Singer/Songwriter',
+    'Rock',
+    'Reggae',
+    'Soul',
+    'Funk',
+    'Pop',
+    'Latin',
+    'K-Pop',
+    'J-Pop',
+    'Jazz',
+    'Electronic',
+    'Industrial',
+    'Indie',
+    'Alternative',
+    'Hip-Hop',
+    'Country',
+    'Blues'];
+
+  $scope.search = {
+    'genre': ['Country']
+  };
+
   $scope.albums = [];
   $scope.index_loaded = 0;
   $scope.loadMore = function() {
@@ -28,10 +54,19 @@ app.controller('AlbumsController', function($scope, $http) {
       $http.get('/model/' + $scope.manifest[i] + '.json')
            .then(function(res) {
               $scope.albums.push(res.data);
+              $scope.triggerScroll();
             });
     }
     $scope.index_loaded += 10;
   };
+
+  $scope.compare = function(actual, expected) {
+    return expected.length == 0 || expected.indexOf(actual) > -1;
+  };
+
+  $scope.$watch('search', function() {
+    $scope.triggerScroll();
+  }, true);
 
   $http.get('/model/manifest.json')
        .then(function(res) {
@@ -41,4 +76,10 @@ app.controller('AlbumsController', function($scope, $http) {
         function(res) {
           $scope.error = "No manifest data. Looks like you've not yet generated the content.";
         });
+
+  $scope.triggerScroll = function(){
+    setTimeout(function(){
+      $(window).scroll()
+    },4)
+  }
 });
