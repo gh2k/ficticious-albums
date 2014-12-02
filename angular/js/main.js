@@ -1,13 +1,22 @@
-var app = angular.module("json_gen", []);
+var app = angular.module("json_gen", ['infinite-scroll']);
 
 app.run(function($rootScope) {
-    // clear all static page content, as it's for SEO/indexing purposes only
-    document.body.innerHTML = '';
 
-    // replace the page content with our framework template
-    fw = document.createElement('ng-include');
-    fw.setAttribute('src', "'/views/framework.html'");
-    document.body.appendChild(fw);
+  // clear all static page content, as it's for SEO/indexing purposes only
+  document.body.innerHTML = '';
+
+  var d = new Date();
+  $rootScope.templateTime = d.getTime();
+
+  $rootScope.templateUrl = function(url) {
+    var d = new Date();
+    return "/views/" + url + ".html?" + this.templateTime;
+  };
+
+  // replace the page content with our framework template
+  var fw = document.createElement('ng-include');
+  fw.setAttribute('src', "templateUrl('framework')");
+  document.body.appendChild(fw);
 });
 
 /// Model for loading and storing our album data
