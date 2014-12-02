@@ -1,1 +1,0 @@
-../lib/angular.js
