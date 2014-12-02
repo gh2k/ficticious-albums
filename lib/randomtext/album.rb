@@ -108,7 +108,7 @@ class RandomText::Album
       lines << gen.generate
     end
 
-    @description = lines.join("<br>")
+    @description = lines.join("\n")
     @genre = GENRES.sample
     @rating = (rand(-10).round / 2.0).to_s
   end
